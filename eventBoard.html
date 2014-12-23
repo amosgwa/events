@@ -1,0 +1,76 @@
+<head>
+	<title>Events Board</title>
+</head>
+
+<body>
+	<h1>Events Board</h1>
+	{{> loginButtons}}
+	{{> showPosts}}
+	{{> newEventForm}}
+</body>
+
+<template name="showPosts">
+	{{#each posts}}
+		<ul class="post {{selectedPost}}">
+			<span>({{userlist.length}}) RSVPs.</span><br/>
+		{{#if currentUser}}
+			{{#if hasRSVP}}
+			<span class="cancelrsvp"><u>Cancel RSVP</u></span><br/>
+			{{else}}
+			<span class="rsvp"><u>Click to RSVP</u></span><br/>
+			{{/if}} 
+			{{#if theAuthor}}
+				<span class="removePost"><u>Remove</u></span>
+				<br/><span class="editPost">Edit</span><br/>
+			{{/if}}
+		{{/if}}
+		<li><u><b>{{title}}</b></u> by {{author}}</li>
+		<img src="{{imgURL}}" width="500" height="auto" />
+		<li>{{description}}</li>
+		<li>Time : {{time}}</li>
+		<li>Location : {{location}}</li>
+		{{#if currentUser}}
+			{{#if theAuthor}}
+				{{> editPost}}
+			{{/if}}
+		{{/if}}
+		</ul>
+	{{/each}}
+</template>
+
+<template name="editPost">
+	<form class="editEvent {{editthisPost}}">
+		<div><b>Edit the Event</b></div>
+		<div>Title:</div>
+		<input type="text" name="edittitle" value="{{this.title}}">
+		<div>Description:</div>
+		<textarea name="editdescription" id="" cols="50" rows="10" value="{{this.description}}"></textarea>
+<div>Image URL:</div>
+		<input type="text" name="editimgURL" value="{{this.imgURL}}">
+		<div>Time:</div>
+		<input type="text" name="edittime" value="{{this.time}}">
+		<div>Location:</div>
+		<input type="text" name="editlocation" value="{{this.location}}"><br/>
+		<input type="submit" class="doEdit" value="Edit Event">
+		<span class="cancelEdit">Cancel</span>
+	</form>
+</template>
+
+<template name="newEventForm">
+	{{#if currentUser}}
+	<form class="newEvent">
+		<div><b>Add a new Event</b></div>
+		<div>Title:</div>
+		<input type="text" name="newtitle">
+		<div>Description:</div>
+		<textarea name="newdescription" id="" cols="50" rows="10"></textarea>
+		<div>Image URL:</div>
+		<input type="text" name="newimgURL" value="http://i.imgur.com/Ep4lPQT.jpg">
+		<div>Time:</div>
+		<input type="text" name="newtime">
+		<div>Location:</div>
+		<input type="text" name="newlocation"><br/>
+		<input type="submit" value="Add Event">
+	</form>
+	{{/if}}
+</template>

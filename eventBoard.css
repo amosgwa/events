@@ -1,0 +1,12 @@
+/* CSS declarations go here */
+.selectedPost{
+	background-color: #C2E2FF;
+}
+
+.editEvent{
+	display: none;
+}
+
+.show{
+	display: block;
+}
